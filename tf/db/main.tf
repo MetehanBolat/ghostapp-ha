@@ -7,7 +7,7 @@ provider "azurerm" {
 ### MySQL Server ###
 ####################
 resource "azurerm_mysql_server" "mysqlServer" {
-  name                = "${var.resourcePrefix}-server"
+  name                = "${var.resourcePrefix}-db"
   location            = var.location
   resource_group_name = var.rgName
 
@@ -31,7 +31,7 @@ resource "azurerm_mysql_server" "mysqlServer" {
 ## MySQL Database ##
 ####################
 resource "azurerm_mysql_database" "mysqlDatabase" {
-  name                = "${var.resourcePrefix}-db"
+  name                = azurerm_mysql_server.mysqlServer.name
   resource_group_name = azurerm_mysql_server.mysqlServer.resource_group_name
   server_name         = azurerm_mysql_server.mysqlServer.name
   charset             = "utf8"

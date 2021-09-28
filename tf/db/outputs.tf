@@ -5,7 +5,7 @@ output "dbPass" {
     value = azurerm_mysql_server.mysqlServer.administrator_login_password
 }
 output "dbHost" {
-    value = "${azurerm_mysql_server.mysqlServer.name}.nordcloud-eu-mysql.mysql.database.azure.com"
+    value = "${azurerm_mysql_server.mysqlServer.name}.mysql.database.azure.com"
 }
 output "dbName" {
     value = azurerm_mysql_database.mysqlDatabase.name
