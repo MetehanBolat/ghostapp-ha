@@ -37,3 +37,11 @@ resource "azurerm_mysql_database" "mysqlDatabase" {
   charset             = "utf8"
   collation           = "utf8_unicode_ci"
 }
+
+resource "azurerm_mysql_firewall_rule" "allowAzure" {
+  name                = "allowAzure"
+  resource_group_name = azurerm_mysql_server.mysqlServer.resource_group_name
+  server_name         = azurerm_mysql_server.mysqlServer.name
+  start_ip_address    = "0.0.0.0"
+  end_ip_address      = "0.0.0.0"
+}

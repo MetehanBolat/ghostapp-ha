@@ -6,10 +6,6 @@ provider "azurerm" {
 ####################
 #### RG ############
 ####################
-resource "azurerm_resource_group" "rg" {
-  name                          = "${var.resourcePrefix}-rg"
-  location                      = var.location
-}
 resource "azurerm_resource_group" "rgweb" {
   name                          = "${var.resourcePrefix}-web-rg"
   location                      = var.location
