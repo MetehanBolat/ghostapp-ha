@@ -1,0 +1,5 @@
+resourcePrefix = "nca-eu"
+location       = "westeurope"
+adminName      = "ncauser"
+adminPass      = "539SUKTWgmh=LZ9s"
+storageName    = "ncaeustr"

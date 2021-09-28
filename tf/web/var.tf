@@ -1,0 +1,30 @@
+variable "resourcePrefix" {
+  type = string
+}
+variable "location" {
+  type = string
+}
+variable "rgName" {
+  type = string
+}
+variable "storageName" {
+  type = string
+}
+variable "storageKey" {
+  type = string
+}
+variable "shareName" {
+  type = string
+}
+variable "dbHost" {
+  type = string
+}
+variable "dbName" {
+  type = string
+}
+variable "dbUser" {
+  type = string
+}
+variable "dbPass" {
+  type = string
+}
