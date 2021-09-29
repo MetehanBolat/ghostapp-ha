@@ -51,7 +51,7 @@ resource "azurerm_app_service" "app" {
   }
 
   site_config {
-    linux_fx_version = "DOCKER|library/ghost:4.16.0-alpine"
+    linux_fx_version = "DOCKER|ghost:4.16.0-alpine"
     always_on        = "true"
   }
 
