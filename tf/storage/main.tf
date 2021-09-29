@@ -34,38 +34,38 @@ resource "azurerm_storage_share" "share" {
 ## Ghost specific ##
 # Work Directories #
 ####################
-resource "azurerm_storage_share_directory" "adapters" {
-  name                 = "adapters"
-  share_name           = azurerm_storage_share.share.name
-  storage_account_name = azurerm_storage_account.storage.name
-}
-resource "azurerm_storage_share_directory" "apps" {
-  name                 = "apps"
-  share_name           = azurerm_storage_share.share.name
-  storage_account_name = azurerm_storage_account.storage.name
-}
-resource "azurerm_storage_share_directory" "data" {
-  name                 = "data"
-  share_name           = azurerm_storage_share.share.name
-  storage_account_name = azurerm_storage_account.storage.name
-}
-resource "azurerm_storage_share_directory" "images" {
-  name                 = "images"
-  share_name           = azurerm_storage_share.share.name
-  storage_account_name = azurerm_storage_account.storage.name
-}
-resource "azurerm_storage_share_directory" "logs" {
-  name                 = "logs"
-  share_name           = azurerm_storage_share.share.name
-  storage_account_name = azurerm_storage_account.storage.name
-}
-resource "azurerm_storage_share_directory" "settings" {
-  name                 = "settings"
-  share_name           = azurerm_storage_share.share.name
-  storage_account_name = azurerm_storage_account.storage.name
-}
-resource "azurerm_storage_share_directory" "themes" {
-  name                 = "themes"
-  share_name           = azurerm_storage_share.share.name
-  storage_account_name = azurerm_storage_account.storage.name
-}
+#resource "azurerm_storage_share_directory" "adapters" {
+#  name                 = "adapters"
+#  share_name           = azurerm_storage_share.share.name
+#  storage_account_name = azurerm_storage_account.storage.name
+#}
+#resource "azurerm_storage_share_directory" "apps" {
+#  name                 = "apps"
+#  share_name           = azurerm_storage_share.share.name
+#  storage_account_name = azurerm_storage_account.storage.name
+#}
+#resource "azurerm_storage_share_directory" "data" {
+#  name                 = "data"
+#  share_name           = azurerm_storage_share.share.name
+#  storage_account_name = azurerm_storage_account.storage.name
+#}
+#resource "azurerm_storage_share_directory" "images" {
+#  name                 = "images"
+#  share_name           = azurerm_storage_share.share.name
+#  storage_account_name = azurerm_storage_account.storage.name
+#}
+#resource "azurerm_storage_share_directory" "logs" {
+#  name                 = "logs"
+#  share_name           = azurerm_storage_share.share.name
+#  storage_account_name = azurerm_storage_account.storage.name
+#}
+#resource "azurerm_storage_share_directory" "settings" {
+#  name                 = "settings"
+#  share_name           = azurerm_storage_share.share.name
+#  storage_account_name = azurerm_storage_account.storage.name
+#}
+#resource "azurerm_storage_share_directory" "themes" {
+#  name                 = "themes"
+#  share_name           = azurerm_storage_share.share.name
+#  storage_account_name = azurerm_storage_account.storage.name
+#}

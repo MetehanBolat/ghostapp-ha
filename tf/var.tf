@@ -1,12 +1,24 @@
 ## common variables
-variable "resourcePrefix" {
+variable "globalResourcePrefix" {
   type = string
 }
-variable "location" {
+variable "primaryResourcePrefix" {
+  type = string
+}
+variable "secondaryResourcePrefix" {
+  type = string
+}
+variable "primaryLocation" {
+  type = string
+}
+variable "secondaryLocation" {
   type = string
 }
 ## variables for storage module
-variable "storageName" {
+variable "primaryStorageName" {
+  type = string
+}
+variable "secondaryStorageName" {
   type = string
 }
 ## variables for DB module
