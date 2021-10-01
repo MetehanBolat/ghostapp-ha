@@ -7,6 +7,9 @@ variable "location" {
 variable "rgName" {
   type = string
 }
+variable "serverName" {
+  type = string
+}
 variable "adminName" {
   type = string
   sensitive = true
