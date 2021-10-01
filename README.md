@@ -6,29 +6,33 @@ This repo contains assets for multi-regional, highly-available, scalable and sec
 
 # TL;DR
 [terraform.tfvars](./tf/terraform.tfvars): edit before deployment
+```bash
 $ cd ./tf
 $ terraform init
 $ terraform plan
 $ terraform apply
 "yes"
+```
 
 ## Table of Contents
 - [Architecture overview](./NCA-HA-Architecture.pdf)
 - [Architecture Visio draft](./NCA-HA.vsdx)
 - [Terraform Base](./tf/) : Base directory for NCA deployment
--- [ResourceGroup Module](./rg/) : Azure ResourceGroup Deployment for Web - DB - Security
--- [Database Module](./tf/db/) : Azure Database for MySQL
--- [Storage Module](./tf/storage/) : Azure Storage Account, Container, FileShare, BlobContent, SASUri deployment
---- [Ghost Purger](./tf/storage/artifacts/) : Deployed as a blob by Storage Module, consumed by WebModule for functionApp
--- [KeyVault Module](./tf/vault/) : Azure KeyVault Service for MySQL credentials
--- [Web Module](./tf/web/) : App Service Plan, Web App for Containers, FunctionApp deployment
--- [Web Application Firewall](./tf/waf/) : Global Azure FrontDoor deployment with AppService backend
+- [ResourceGroup Module](./rg/) : Azure ResourceGroup Deployment for Web - DB - Security
+- [Database Module](./tf/db/) : Azure Database for MySQL
+- [Storage Module](./tf/storage/) : Azure Storage Account, Container, FileShare, BlobContent, SASUri deployment
+- [Ghost Purger](./tf/storage/artifacts/) : Deployed as a blob by Storage Module, consumed by WebModule for functionApp
+- [KeyVault Module](./tf/vault/) : Azure KeyVault Service for MySQL credentials
+- [Web Module](./tf/web/) : App Service Plan, Web App for Containers, FunctionApp deployment
+- [Web Application Firewall](./tf/waf/) : Global Azure FrontDoor deployment with AppService backend
 - [Terraform Variables](./tf/terraform.tfvars) : Default values for NCA deployment
 
 ### Prerequisities
 - You need to have an active Azure Subscription. ([Try for free](https://azure.microsoft.com/en-us/free/))
 - [Azure-cli](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
 - [Terraform-cli](https://www.terraform.io/docs/cli/index.html)
+
+
 Terraform modules are tested with tooling defined below:
 Terraform v1.0.7
 on windows_amd64
