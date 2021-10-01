@@ -31,6 +31,18 @@ resource "azurerm_function_app" "app" {
   storage_account_name       = var.storageName
   storage_account_access_key = var.storageKey
   os_type                    = "linux"
+
+  app_settings = {
+    DB_HOST = var.dbHost
+    DB_DATABASE = var.dbName
+    DB_USER = "@Microsoft.KeyVault(VaultName=${var.vaultName};${var.secretNameUser})"
+    DB_PASSWORD = "@Microsoft.KeyVault(VaultName=${var.vaultName};${var.secretNamePass})"
+  }
+  
+  identity {
+    type = "UserAssigned"
+    identity_ids = [var.identity]
+  }
 }
 
 ####################

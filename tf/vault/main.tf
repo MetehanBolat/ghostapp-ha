@@ -20,6 +20,7 @@ resource "azurerm_key_vault" "vault" {
   purge_protection_enabled        = false
   enabled_for_deployment          = true
   enabled_for_template_deployment = true
+  soft_delete_enabled             = false
 
   sku_name                        = "standard"
 }
@@ -69,11 +70,11 @@ resource "azurerm_key_vault_access_policy" "id" {
 resource "azurerm_key_vault_secret" "username" {
   name         = "${var.resourcePrefix}-mysql-user"
   value        = "${var.adminName}@${var.serverName}"
-  key_vault_id = azurerm_key_vault.vault.id
+  key_vault_id = azurerm_key_vault_access_policy.default.key_vault_id
 }
 
 resource "azurerm_key_vault_secret" "password" {
   name         = "${var.resourcePrefix}-mysql-pass"
   value        = var.adminPass
-  key_vault_id = azurerm_key_vault.vault.id
+  key_vault_id = azurerm_key_vault_access_policy.default.key_vault_id
 }
