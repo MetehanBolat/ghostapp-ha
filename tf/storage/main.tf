@@ -13,7 +13,7 @@ resource "azurerm_storage_account" "storage" {
   account_replication_type  = "LRS"
   enable_https_traffic_only = true
   min_tls_version           = "TLS1_2"
-  allow_blob_public_access  = true
+  allow_blob_public_access  = false
   shared_access_key_enabled = true
   nfsv3_enabled             = false
   is_hns_enabled            = false

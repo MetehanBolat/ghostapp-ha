@@ -45,3 +45,5 @@ resource "azurerm_mysql_firewall_rule" "allowAll" {
   start_ip_address    = "0.0.0.0"
   end_ip_address      = "255.255.255.255"
 }
+
+### REMOVE ALLOW ALL and Allow only APP SERVICE PLAN IPs
