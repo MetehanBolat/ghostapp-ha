@@ -49,7 +49,7 @@ Terraform modules are tested with tooling defined below:
 - telemetry                          1.0.6
 - Python (Windows) 3.8.9 (tags/v3.8.9:a743f81, Apr  6 2021, 13:22:56) [MSC v.1928 32 bit (Intel)]
 
-### List of Deployed all Azure Infrastructure resources
+### List of Deployed all (43) Azure Infrastructure resources
 - 7x ResourceGroups (2x Web, 2x DB, 2x Security, 1x Global)
 - 2x User Assigned Identities
 - 2x Azure KeyVaults
