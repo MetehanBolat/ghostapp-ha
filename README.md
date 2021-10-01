@@ -24,14 +24,14 @@ $ Apply complete! Resources: 43 added, 0 changed, 0 destroyed.
 ## Table of Contents
 - [Architecture overview](./NCA-HA-Architecture.pdf) : Overview of NCA deployment
 - [Architecture Visio draft](./NCA-HA.vsdx)
-- [Terraform Base](./tf/main.tf) : Base module for NCA deployment
-- [ResourceGroup Module](./rg/main.tf) : Azure ResourceGroup Deployment for Web - DB - Security
-- [Database Module](./tf/db/main.tf) : Azure Database for MySQL
-- [Storage Module](./tf/storage/main.tf) : Azure Storage Account, Container, FileShare, BlobContent, SASUri deployment
-- [Ghost Purger](./tf/storage/artifacts/ghost-function.zip) : Deployed as a blob by Storage Module, consumed by WebModule for functionApp
-- [KeyVault Module](./tf/vault/main.tf) : Azure KeyVault Service for MySQL credentials
-- [Web Module](./tf/web/main.tf) : App Service Plan, Web App for Containers, FunctionApp deployment
-- [Web Application Firewall](./tf/waf/main.tf) : Global Azure FrontDoor deployment with AppService backend
+- [Terraform Base](./tf/) : Base module for NCA deployment
+- [ResourceGroup Module](./tf/rg/) : Azure ResourceGroup Deployment for Web - DB - Security
+- [Database Module](./tf/db/) : Azure Database for MySQL
+- [Storage Module](./tf/storage/) : Azure Storage Account, Container, FileShare, BlobContent, SASUri deployment
+- [Ghost Purger](./tf/storage/artifacts/) : Deployed as a blob by Storage Module, consumed by WebModule for functionApp
+- [KeyVault Module](./tf/vault/) : Azure KeyVault Service for MySQL credentials
+- [Web Module](./tf/web/) : App Service Plan, Web App for Containers, FunctionApp deployment
+- [Web Application Firewall](./tf/waf/) : Global Azure FrontDoor deployment with AppService backend
 - [Terraform Variables](./tf/terraform.tfvars) : Default values for NCA deployment
 
 ### Prerequisities
