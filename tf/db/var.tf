@@ -9,7 +9,9 @@ variable "rgName" {
 }
 variable "adminName" {
   type = string
+  sensitive = true
 }
 variable "adminPass" {
   type = string
+  sensitive = true
 }

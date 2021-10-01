@@ -24,12 +24,15 @@ variable "blobName" {
 }
 variable "sasKey" {
   type = string
+  sensitive = true
 }
 variable "dbHost" {
   type = string
+  sensitive = true
 }
 variable "dbName" {
   type = string
+  sensitive = true
 }
 variable "identity" {
   type = string
