@@ -14,3 +14,7 @@ resource "azurerm_resource_group" "rgdb" {
   name                          = "${var.resourcePrefix}-db-rg"
   location                      = var.location
 }
+resource "azurerm_resource_group" "rgvault" {
+  name                          = "${var.resourcePrefix}-security-rg"
+  location                      = var.location
+}

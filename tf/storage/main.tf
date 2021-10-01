@@ -6,13 +6,18 @@ provider "azurerm" {
 ## StorageAccount ##
 ####################
 resource "azurerm_storage_account" "storage" {
-  name                            = var.storageName
-  resource_group_name             = var.rgName
-  location                        = var.location
-  account_tier                    = "Standard"
-  account_replication_type        = "LRS"
+  name                      = var.storageName
+  resource_group_name       = var.rgName
+  location                  = var.location
+  account_tier              = "Standard"
+  account_replication_type  = "LRS"
+  enable_https_traffic_only = true
+  min_tls_version           = "TLS1_2"
+  allow_blob_public_access  = true
+  shared_access_key_enabled = true
+  nfsv3_enabled             = false
+  is_hns_enabled            = false
 }
-
 ####################
 #### File Share ####
 ####################
@@ -21,7 +26,7 @@ resource "azurerm_storage_share" "share" {
     storage_account_name = azurerm_storage_account.storage.name
     quota                = 50
     acl {
-        id = "MzUzODIxODU3MzE1OTI3MzYxMzQwNDYwNTE4OTk2MDQ="
+        id = "MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI"
         access_policy {
             permissions = "rwdl"
             start       = "2021-09-28T06:00:00.0000000Z"

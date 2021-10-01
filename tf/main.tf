@@ -39,6 +39,26 @@ module "secondary_db" {
     adminPass      = var.adminPass
 }
 
+module "primary_vault" {
+    source         = "./vault"
+    resourcePrefix = var.primaryResourcePrefix
+    location       = var.primaryLocation
+    rgName         = module.primary_rg.vaultrgname
+    serverName     = module.primary_db.serverName
+    adminName      = var.adminName
+    adminPass      = var.adminPass
+}
+
+module "secondary_vault" {
+    source         = "./vault"
+    resourcePrefix = var.secondaryResourcePrefix
+    location       = var.secondaryLocation
+    rgName         = module.secondary_rg.vaultrgname
+    serverName     = module.secondary_db.serverName
+    adminName      = var.adminName
+    adminPass      = var.adminPass
+}
+
 module "primary_web" {
     source         = "./web"
     resourcePrefix = var.primaryResourcePrefix
@@ -49,8 +69,10 @@ module "primary_web" {
     shareName      = module.primary_storage.shareName
     dbHost         = module.primary_db.dbHost
     dbName         = module.primary_db.dbName
-    dbUser         = module.primary_db.dbUser
-    dbPass         = module.primary_db.dbPass
+    vaultName      = module.primary_vault.vaultName
+    secretNameUser = module.primary_vault.secretNameUser
+    secretNamePass = module.primary_vault.secretNamePass
+    identity       = module.primary_vault.identityId
 }
 module "secondary_web" {
     source         = "./web"
@@ -62,8 +84,10 @@ module "secondary_web" {
     shareName      = module.secondary_storage.shareName
     dbHost         = module.secondary_db.dbHost
     dbName         = module.secondary_db.dbName
-    dbUser         = module.secondary_db.dbUser
-    dbPass         = module.secondary_db.dbPass
+    vaultName      = module.secondary_vault.vaultName
+    secretNameUser = module.secondary_vault.secretNameUser
+    secretNamePass = module.secondary_vault.secretNamePass
+    identity       = module.secondary_vault.identityId
 }
 
 module "global_waf" {

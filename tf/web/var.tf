@@ -22,9 +22,15 @@ variable "dbHost" {
 variable "dbName" {
   type = string
 }
-variable "dbUser" {
+variable "identity" {
   type = string
 }
-variable "dbPass" {
+variable "vaultName" {
+  type = string
+}
+variable "secretNameUser" {
+  type = string
+}
+variable "secretNamePass" {
   type = string
 }
