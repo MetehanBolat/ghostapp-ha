@@ -67,6 +67,9 @@ module "primary_web" {
     storageName    = module.primary_storage.storageName
     storageKey     = module.primary_storage.storageKey
     shareName      = module.primary_storage.shareName
+    containerName  = module.primary_storage.containerName
+    sasKey         = module.primary_storage.sasKey
+    blobName       = module.primary_storage.blobName
     dbHost         = module.primary_db.dbHost
     dbName         = module.primary_db.dbName
     vaultName      = module.primary_vault.vaultName
@@ -82,6 +85,9 @@ module "secondary_web" {
     storageName    = module.secondary_storage.storageName
     storageKey     = module.secondary_storage.storageKey
     shareName      = module.secondary_storage.shareName
+    containerName  = module.secondary_storage.containerName
+    sasKey         = module.secondary_storage.sasKey
+    blobName       = module.secondary_storage.blobName
     dbHost         = module.secondary_db.dbHost
     dbName         = module.secondary_db.dbName
     vaultName      = module.secondary_vault.vaultName

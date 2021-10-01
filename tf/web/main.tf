@@ -33,12 +33,13 @@ resource "azurerm_function_app" "app" {
   os_type                    = "linux"
 
   app_settings = {
-    DB_HOST = var.dbHost
-    DB_DATABASE = var.dbName
-    DB_USER = "@Microsoft.KeyVault(VaultName=${var.vaultName};${var.secretNameUser})"
-    DB_PASSWORD = "@Microsoft.KeyVault(VaultName=${var.vaultName};${var.secretNamePass})"
+    DB_HOST                  = var.dbHost
+    DB_DATABASE              = var.dbName
+    DB_USER                  = "@Microsoft.KeyVault(VaultName=${var.vaultName};${var.secretNameUser})"
+    DB_PASSWORD              = "@Microsoft.KeyVault(VaultName=${var.vaultName};${var.secretNamePass})"
+    WEBSITE_RUN_FROM_PACKAGE = "https://${var.storageName}.blob.core.windows.net/${var.containerName}/${var.blobName}${var.sasKey}"
   }
-  
+
   identity {
     type = "UserAssigned"
     identity_ids = [var.identity]

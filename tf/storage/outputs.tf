@@ -7,4 +7,12 @@ output "storageKey" {
 output "shareName" {
     value = azurerm_storage_share.share.name
 }
-
+output "containerName" {
+    value = azurerm_storage_share.share.name
+}
+output "sasKey" {
+  value = data.azurerm_storage_account_sas.sas.sas
+}
+output "blobName" {
+    value = azurerm_storage_blob.blob.name
+}

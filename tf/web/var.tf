@@ -16,6 +16,15 @@ variable "storageKey" {
 variable "shareName" {
   type = string
 }
+variable "containerName" {
+  type = string
+}
+variable "blobName" {
+  type = string
+}
+variable "sasKey" {
+  type = string
+}
 variable "dbHost" {
   type = string
 }
@@ -34,3 +43,4 @@ variable "secretNameUser" {
 variable "secretNamePass" {
   type = string
 }
+
