@@ -24,20 +24,24 @@ resource "azurerm_app_service_plan" "asp" {
 ### Function App ###
 ####################
 resource "azurerm_function_app" "app" {
-  name                       = "${var.resourcePrefix}-app"
-  location                   = var.location
-  resource_group_name        = var.rgName
-  app_service_plan_id        = azurerm_app_service_plan.asp.id
-  storage_account_name       = var.storageName
-  storage_account_access_key = var.storageKey
-  os_type                    = "linux"
+  name = "${var.resourcePrefix}-app"
+  location                    = var.location
+  resource_group_name         = var.rgName
+  app_service_plan_id         = azurerm_app_service_plan.asp.id
+  storage_account_name        = var.storageName
+  storage_account_access_key  = var.storageKey
+  os_type                     = "linux"
 
   app_settings = {
-    DB_HOST                  = var.dbHost
-    DB_DATABASE              = var.dbName
-    DB_USER                  = "@Microsoft.KeyVault(VaultName=${var.vaultName};${var.secretNameUser})"
-    DB_PASSWORD              = "@Microsoft.KeyVault(VaultName=${var.vaultName};${var.secretNamePass})"
-    WEBSITE_RUN_FROM_PACKAGE = "https://${var.storageName}.blob.core.windows.net/${var.containerName}/${var.blobName}${var.sasKey}"
+    DB_HOST                   = var.dbHost
+    DB_DATABASE               = var.dbName
+    DB_USER                   = "@Microsoft.KeyVault(SecretUri=${var.secretUriUser})"
+    DB_PASSWORD               = "@Microsoft.KeyVault(SecretUri=${var.secretUriPass})"
+    WEBSITE_RUN_FROM_PACKAGE  = "https://${var.storageName}.blob.core.windows.net/${var.containerName}/${var.blobName}${var.sasKey}"
+    keyVaultReferenceIdentity = var.identity
+  }
+  auth_settings {
+    enabled = true
   }
 
   identity {
@@ -67,15 +71,17 @@ resource "azurerm_app_service" "web" {
 
   app_settings = {
     WEBSITES_ENABLE_APP_SERVICE_STORAGE   = true ##required for storage persistance over Azure Files
+    WEBSITE_ENABLE_SYNC_UPDATE_SITE       = true ##app settings required for application to boot up
     WEBSITES_CONTAINER_START_TIME_LIMIT   = 1000 ##ghost app requires time to boot up with mysql db connection. early restart causes database locks
+    keyVaultReferenceIdentity             = var.identity
     ## ghost settings
     url                                   = "https://${var.resourcePrefix}-web.azurewebsites.net"
     database__client                      = "mysql"
     database__connection__host            = var.dbHost
     database__connection__port            = 3306
     database__connection__database        = var.dbName
-    database__connection__user            = "@Microsoft.KeyVault(VaultName=${var.vaultName};${var.secretNameUser})"
-    database__connection__password        = "@Microsoft.KeyVault(VaultName=${var.vaultName};${var.secretNamePass})"
+    database__connection__user            = "@Microsoft.KeyVault(SecretUri=${var.secretUriUser})"
+    database__connection__password        = "@Microsoft.KeyVault(SecretUri=${var.secretUriPass})"
     database__connection__ssl             = "true"
     database__connection__ssl__minVersion = "TLSv1.2"
     NODE_ENV                              = "production"
@@ -84,8 +90,8 @@ resource "azurerm_app_service" "web" {
   }
 
   site_config {
-    linux_fx_version = "DOCKER|ghost:4.16.0-alpine"
-    always_on        = "true"
+    linux_fx_version          = "DOCKER|ghost:4.16.0-alpine"
+    always_on                 = "true"
   }
 
   identity {

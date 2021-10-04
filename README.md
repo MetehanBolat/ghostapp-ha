@@ -49,15 +49,15 @@ Terraform modules are tested with tooling defined below:
 - telemetry                          1.0.6
 - Python (Windows) 3.8.9 (tags/v3.8.9:a743f81, Apr  6 2021, 13:22:56) [MSC v.1928 32 bit (Intel)]
 
-### List of Deployed all (43) Azure Infrastructure resources
+### List of Deployed all (36) Azure Infrastructure resources
 - 7x ResourceGroups (2x Web, 2x DB, 2x Security, 1x Global)
 - 2x User Assigned Identities
 - 2x Azure KeyVaults
-- 2x Azure Storage Accounts
-- 2x Azure Files Shares (ghost)
-- 2x Azure Containers (pub)
-- 2x Azure Blobs (ghost-function.zip) : 2x Shared Access Signatures
-- 2x Azure MySQL Database Servers : 2x Azure Database for MySQL
+- 1x Azure Storage Account
+- 1x Azure Files Share (ghost)
+- 1x Azure Container (pub)
+- 1x Azure Blob (ghost-function.zip) : 1x Shared Access Signature
+- 1x Azure MySQL Database Servers : 1x Azure Database for MySQL
 - 2x Linux App Service Plans : 2x Autoscale profiles
 - 2x Web App for Containers (docker/ghost:alpine-4.16.0)
 - 2x FunctionApp (ghost-function.zip)

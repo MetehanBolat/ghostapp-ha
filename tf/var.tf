@@ -15,10 +15,7 @@ variable "secondaryLocation" {
   type = string
 }
 ## variables for storage module
-variable "primaryStorageName" {
-  type = string
-}
-variable "secondaryStorageName" {
+variable "storageName" {
   type = string
 }
 ## variables for DB module

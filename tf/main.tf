@@ -9,32 +9,19 @@ module "secondary_rg" {
     location       = var.secondaryLocation
 }
 
-module "primary_storage" {
+## Geo-redundant storage
+module "replicated_storage" {
     source         = "./storage"
-    storageName    = var.primaryStorageName
+    storageName    = var.storageName
     location       = var.primaryLocation
     rgName         = module.primary_rg.webrgname
 }
-module "secondary_storage" {
-    source         = "./storage"
-    storageName    = var.secondaryStorageName
-    location       = var.secondaryLocation
-    rgName         = module.secondary_rg.webrgname
-}
 
-module "primary_db" {
+module "replicated_db" {
     source         = "./db"
     resourcePrefix = var.primaryResourcePrefix
     location       = var.primaryLocation
     rgName         = module.primary_rg.dbrgname
-    adminName      = var.adminName
-    adminPass      = var.adminPass
-}
-module "secondary_db" {
-    source         = "./db"
-    resourcePrefix = var.secondaryResourcePrefix
-    location       = var.secondaryLocation
-    rgName         = module.secondary_rg.dbrgname
     adminName      = var.adminName
     adminPass      = var.adminPass
 }
@@ -44,7 +31,7 @@ module "primary_vault" {
     resourcePrefix = var.primaryResourcePrefix
     location       = var.primaryLocation
     rgName         = module.primary_rg.vaultrgname
-    serverName     = module.primary_db.serverName
+    serverName     = module.replicated_db.serverName
     adminName      = var.adminName
     adminPass      = var.adminPass
 }
@@ -54,7 +41,7 @@ module "secondary_vault" {
     resourcePrefix = var.secondaryResourcePrefix
     location       = var.secondaryLocation
     rgName         = module.secondary_rg.vaultrgname
-    serverName     = module.secondary_db.serverName
+    serverName     = module.replicated_db.serverName
     adminName      = var.adminName
     adminPass      = var.adminPass
 }
@@ -64,17 +51,16 @@ module "primary_web" {
     resourcePrefix = var.primaryResourcePrefix
     location       = var.primaryLocation
     rgName         = module.primary_rg.webrgname
-    storageName    = module.primary_storage.storageName
-    storageKey     = module.primary_storage.storageKey
-    shareName      = module.primary_storage.shareName
-    containerName  = module.primary_storage.containerName
-    sasKey         = module.primary_storage.sasKey
-    blobName       = module.primary_storage.blobName
-    dbHost         = module.primary_db.dbHost
-    dbName         = module.primary_db.dbName
-    vaultName      = module.primary_vault.vaultName
-    secretNameUser = module.primary_vault.secretNameUser
-    secretNamePass = module.primary_vault.secretNamePass
+    storageName    = module.replicated_storage.storageName
+    storageKey     = module.replicated_storage.storageKey
+    shareName      = module.replicated_storage.shareName
+    containerName  = module.replicated_storage.containerName
+    sasKey         = module.replicated_storage.sasKey
+    blobName       = module.replicated_storage.blobName
+    dbHost         = module.replicated_db.dbHost
+    dbName         = module.replicated_db.dbName
+    secretUriUser  = module.primary_vault.secretUriUser
+    secretUriPass  = module.primary_vault.secretUriPass
     identity       = module.primary_vault.identityId
 }
 module "secondary_web" {
@@ -82,17 +68,16 @@ module "secondary_web" {
     resourcePrefix = var.secondaryResourcePrefix
     location       = var.secondaryLocation
     rgName         = module.secondary_rg.webrgname
-    storageName    = module.secondary_storage.storageName
-    storageKey     = module.secondary_storage.storageKey
-    shareName      = module.secondary_storage.shareName
-    containerName  = module.secondary_storage.containerName
-    sasKey         = module.secondary_storage.sasKey
-    blobName       = module.secondary_storage.blobName
-    dbHost         = module.secondary_db.dbHost
-    dbName         = module.secondary_db.dbName
-    vaultName      = module.secondary_vault.vaultName
-    secretNameUser = module.secondary_vault.secretNameUser
-    secretNamePass = module.secondary_vault.secretNamePass
+    storageName    = module.replicated_storage.storageName
+    storageKey     = module.replicated_storage.storageKey
+    shareName      = module.replicated_storage.shareName
+    containerName  = module.replicated_storage.containerName
+    sasKey         = module.replicated_storage.sasKey
+    blobName       = module.replicated_storage.blobName
+    dbHost         = module.replicated_db.dbHost
+    dbName         = module.replicated_db.dbName
+    secretUriUser  = module.secondary_vault.secretUriUser
+    secretUriPass  = module.secondary_vault.secretUriPass
     identity       = module.secondary_vault.identityId
 }
 

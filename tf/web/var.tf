@@ -37,13 +37,10 @@ variable "dbName" {
 variable "identity" {
   type = string
 }
-variable "vaultName" {
+variable "secretUriUser" {
   type = string
 }
-variable "secretNameUser" {
-  type = string
-}
-variable "secretNamePass" {
+variable "secretUriPass" {
   type = string
 }
 

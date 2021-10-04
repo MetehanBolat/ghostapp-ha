@@ -39,12 +39,14 @@ resource "azurerm_frontdoor" "waf" {
       address     = var.primaryUrl
       http_port   = 80
       https_port  = 443
+      weight      = 80
     }
     backend {
       host_header = var.secondaryUrl
       address     = var.secondaryUrl
       http_port   = 80
       https_port  = 443
+      weight      = 20
     }
 
     load_balancing_name = "endpoint01"
