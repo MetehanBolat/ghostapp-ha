@@ -25,7 +25,10 @@ Azure FrontDoor load balances the traffic with 70%/30% primary/secondary distrib
 Deployment uses application and database layer version defined below.
  - Docker/ghost:alpine-4.16.0
  - MySQL 5.7
+
+
 The solution also contains a function app that can purge all content in the MySQL database.
+
 Regarding node.js [application artifact](./tf/storage/artifacts) is set for FunctionApp package location and accessed securely.
 
 ## Table of Contents
