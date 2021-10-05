@@ -96,3 +96,11 @@ Terraform modules are tested with tooling defined below:
 ### How to enable monitoring
 - https://www.codeisahighway.com/configure-application-insights-for-your-ghost-blog-running-node-js-on-azure/
 - Base docker image must be updated to activate Application Insights telemetry for node.js application
+
+### Troubleshooting
+Ghost application tries to bootup on several instance with the same database context. In that sense, application might try to start database migrations and put a lock to prevent further migrations. If application restarts before initial boot up, database might be left in ambitious state.
+This should happen on the first run. Below is the fix.
+- Stop secondary web application
+- Connect MySQL instance and clear migration_lock table
+- Restart primary web application
+- Monitor primary application - start secondary web application when primary boots up
