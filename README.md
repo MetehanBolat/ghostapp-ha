@@ -28,10 +28,11 @@ Regarding node.js [application artifact](./tf/storage/artifacts) is set for Func
 ## Table of Contents
 - [Architecture overview](./NCA-HA-Architecture.pdf) : Overview of NCA deployment
 - [Architecture Visio draft](./NCA-HA.vsdx)
-- [Terraform Base](./tf/) : Base module for NCA deployment
+- [Terraform Base](./tf/main.tf) : Base module for NCA deployment
 - [ResourceGroup Module](./tf/rg/) : Azure ResourceGroup Deployment for Web - DB - Security
 - [Database Module](./tf/db/) : Azure Database for MySQL
 - [Storage Module](./tf/storage/) : Azure Storage Account, Container, FileShare, BlobContent, SASUri deployment
+- [ApplicationInsights Module](./tf/ai/) : Application Insights deployment for primary and secondary location
 - [Ghost Purger](./tf/storage/artifacts/) : Deployed as a blob by Storage Module, consumed by WebModule for functionApp
 - [KeyVault Module](./tf/vault/) : Azure KeyVault Service for MySQL credentials
 - [Web Module](./tf/web/) : App Service Plan, Web App for Containers, FunctionApp deployment
@@ -71,6 +72,9 @@ Terraform modules are tested with tooling defined below:
 - [AppServicePlan](./tf/web/main.tf#L19)
 - [MySQL Server](./tf/db/main.tf#L17)
 - [Azure Files Share Quota](./tf/storage/main.tf#L27)
+### Scale-out conditions
+- App service plan adds +1 base instance, if average CPU is over 50%
+- App service plan removes -1 base instance, if average CPU is below 10%
 
 
 ### Details
@@ -91,4 +95,4 @@ Terraform modules are tested with tooling defined below:
 
 ### How to enable monitoring
 - https://www.codeisahighway.com/configure-application-insights-for-your-ghost-blog-running-node-js-on-azure/
-- Base docker image must be updated to active Application Insights telemetry for node.js application
+- Base docker image must be updated to activate Application Insights telemetry for node.js application
