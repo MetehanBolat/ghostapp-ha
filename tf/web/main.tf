@@ -70,6 +70,8 @@ resource "azurerm_app_service" "web" {
   }
 
   app_settings = {
+    APPINSIGHTS_INSTRUMENTATIONKEY        = var.aiKey
+    APPLICATIONINSIGHTS_CONNECTION_STRING = var.aiConnectionString
     WEBSITES_ENABLE_APP_SERVICE_STORAGE   = true ##required for storage persistance over Azure Files
     WEBSITE_ENABLE_SYNC_UPDATE_SITE       = true ##app settings required for application to boot up
     WEBSITES_CONTAINER_START_TIME_LIMIT   = 1000 ##ghost app requires time to boot up with mysql db connection. early restart causes database locks

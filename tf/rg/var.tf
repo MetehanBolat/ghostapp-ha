@@ -1,6 +1,15 @@
-variable "resourcePrefix" {
+variable "globalResourcePrefix" {
   type = string
 }
-variable "location" {
+variable "primaryResourcePrefix" {
+  type = string
+}
+variable "primaryLocation" {
+  type = string
+}
+variable "secondaryResourcePrefix" {
+  type = string
+}
+variable "secondaryLocation" {
   type = string
 }

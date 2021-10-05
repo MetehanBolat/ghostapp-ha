@@ -16,3 +16,6 @@ variable "primaryUrl" {
 variable "secondaryUrl" {
   type = string
 }
+variable "rgName" {
+  type = string
+}

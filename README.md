@@ -11,14 +11,14 @@ $ cd ./tf
 $ terraform init
 $ terraform plan
 $ terraform apply
-$ Plan: 43 to add, 0 to change, 0 to destroy.
+$ Plan: 38 to add, 0 to change, 0 to destroy.
 $ Do you want to perform these actions?
 $ Terraform will perform the actions described above.
 $ Only 'yes' will be accepted to approve.
 $
 $  Enter a value:
 $ "yes"
-$ Apply complete! Resources: 43 added, 0 changed, 0 destroyed.
+$ Apply complete! Resources: 38 added, 0 changed, 0 destroyed.
 ```
 
 ## Table of Contents
@@ -49,9 +49,10 @@ Terraform modules are tested with tooling defined below:
 - telemetry                          1.0.6
 - Python (Windows) 3.8.9 (tags/v3.8.9:a743f81, Apr  6 2021, 13:22:56) [MSC v.1928 32 bit (Intel)]
 
-### List of Deployed all (36) Azure Infrastructure resources
+### List of Deployed all (38) Azure Infrastructure resources
 - 7x ResourceGroups (2x Web, 2x DB, 2x Security, 1x Global)
 - 2x User Assigned Identities
+- 2x Application Insights workspaces
 - 2x Azure KeyVaults
 - 1x Azure Storage Account
 - 1x Azure Files Share (ghost)

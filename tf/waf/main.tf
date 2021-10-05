@@ -3,14 +3,9 @@ provider "azurerm" {
   features {}
 }
 
-resource "azurerm_resource_group" "rg" {
-  name     = "${var.globalResourcePrefix}-rg"
-  location = var.primaryLocation
-}
-
 resource "azurerm_frontdoor" "waf" {
   name                                         = "${var.globalResourcePrefix}-waf"
-  resource_group_name                          = azurerm_resource_group.rg.name
+  resource_group_name                          = var.rgName
   enforce_backend_pools_certificate_name_check = false
 
   routing_rule {
@@ -62,7 +57,7 @@ resource "azurerm_frontdoor" "waf" {
 
 resource "azurerm_frontdoor_firewall_policy" "wafPolicy" {
   name                              = "defaultPolicy"
-  resource_group_name               = azurerm_resource_group.rg.name
+  resource_group_name               = var.rgName
   enabled                           = true
   mode                              = "Prevention"
   redirect_url                      = "https://www.google.com"

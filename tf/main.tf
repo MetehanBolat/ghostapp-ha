@@ -1,88 +1,112 @@
-module "primary_rg" {
-    source         = "./rg"
-    resourcePrefix = var.primaryResourcePrefix
-    location       = var.primaryLocation
-}
-module "secondary_rg" {
-    source         = "./rg"
-    resourcePrefix = var.secondaryResourcePrefix
-    location       = var.secondaryLocation
-}
-
-## Geo-redundant storage
-module "replicated_storage" {
-    source         = "./storage"
-    storageName    = var.storageName
-    location       = var.primaryLocation
-    rgName         = module.primary_rg.webrgname
+## Deploys all resource groups
+module "rg" {
+    source                  = "./rg"
+    globalResourcePrefix    = var.globalResourcePrefix
+    primaryResourcePrefix   = var.primaryResourcePrefix
+    primaryLocation         = var.primaryLocation
+    secondaryResourcePrefix = var.secondaryResourcePrefix
+    secondaryLocation       = var.secondaryLocation
 }
 
-module "replicated_db" {
-    source         = "./db"
-    resourcePrefix = var.primaryResourcePrefix
-    location       = var.primaryLocation
-    rgName         = module.primary_rg.dbrgname
-    adminName      = var.adminName
-    adminPass      = var.adminPass
+## Deploys Geo-redundant storage account
+module "storage" {
+    source             = "./storage"
+    storageName        = var.storageName
+    location           = var.primaryLocation
+    rgName             = module.rg.rgstorage
 }
 
+## Deploys HA MySQL Database with Geo-backup enabled
+module "db" {
+    source             = "./db"
+    resourcePrefix     = var.primaryResourcePrefix
+    location           = var.primaryLocation
+    rgName             = module.rg.rgdb
+    adminName          = var.adminName
+    adminPass          = var.adminPass
+}
+
+##Deploys KeyVault service for primary location
 module "primary_vault" {
-    source         = "./vault"
-    resourcePrefix = var.primaryResourcePrefix
-    location       = var.primaryLocation
-    rgName         = module.primary_rg.vaultrgname
-    serverName     = module.replicated_db.serverName
-    adminName      = var.adminName
-    adminPass      = var.adminPass
+    source             = "./vault"
+    resourcePrefix     = var.primaryResourcePrefix
+    location           = var.primaryLocation
+    rgName             = module.rg.primary_rgvault
+    serverName         = module.db.serverName
+    adminName          = var.adminName
+    adminPass          = var.adminPass
 }
-
+##Deploys KeyVault service for secondary location
 module "secondary_vault" {
-    source         = "./vault"
-    resourcePrefix = var.secondaryResourcePrefix
-    location       = var.secondaryLocation
-    rgName         = module.secondary_rg.vaultrgname
-    serverName     = module.replicated_db.serverName
-    adminName      = var.adminName
-    adminPass      = var.adminPass
+    source             = "./vault"
+    resourcePrefix     = var.secondaryResourcePrefix
+    location           = var.secondaryLocation
+    rgName             = module.rg.secondary_rgvault
+    serverName         = module.db.serverName
+    adminName          = var.adminName
+    adminPass          = var.adminPass
 }
 
+##Deploys application insights for primary location
+module "primary_ai" {
+    source             = "./ai"
+    resourcePrefix     = var.primaryResourcePrefix
+    location           = var.primaryLocation
+    rgName             = module.rg.primary_rgweb
+}
+##Deploys application insights for secondary location
+module "secondary_ai" {
+    source             = "./ai"
+    resourcePrefix     = var.secondaryResourcePrefix
+    location           = var.secondaryLocation
+    rgName             = module.rg.secondary_rgweb
+}
+
+##Deploys web applications and function app for primary location
 module "primary_web" {
-    source         = "./web"
-    resourcePrefix = var.primaryResourcePrefix
-    location       = var.primaryLocation
-    rgName         = module.primary_rg.webrgname
-    storageName    = module.replicated_storage.storageName
-    storageKey     = module.replicated_storage.storageKey
-    shareName      = module.replicated_storage.shareName
-    containerName  = module.replicated_storage.containerName
-    sasKey         = module.replicated_storage.sasKey
-    blobName       = module.replicated_storage.blobName
-    dbHost         = module.replicated_db.dbHost
-    dbName         = module.replicated_db.dbName
-    secretUriUser  = module.primary_vault.secretUriUser
-    secretUriPass  = module.primary_vault.secretUriPass
-    identity       = module.primary_vault.identityId
+    source             = "./web"
+    resourcePrefix     = var.primaryResourcePrefix
+    location           = var.primaryLocation
+    rgName             = module.rg.primary_rgweb
+    storageName        = module.storage.storageName
+    storageKey         = module.storage.storageKey
+    shareName          = module.storage.shareName
+    containerName      = module.storage.containerName
+    sasKey             = module.storage.sasKey
+    blobName           = module.storage.blobName
+    dbHost             = module.db.dbHost
+    dbName             = module.db.dbName
+    secretUriUser      = module.primary_vault.secretUriUser
+    secretUriPass      = module.primary_vault.secretUriPass
+    identity           = module.primary_vault.identityId
+    aiKey              = module.primary_ai.aiKey
+    aiConnectionString = module.primary_ai.aiConnectionString
 }
+##Deploys web applications and function app for secondary location
 module "secondary_web" {
-    source         = "./web"
-    resourcePrefix = var.secondaryResourcePrefix
-    location       = var.secondaryLocation
-    rgName         = module.secondary_rg.webrgname
-    storageName    = module.replicated_storage.storageName
-    storageKey     = module.replicated_storage.storageKey
-    shareName      = module.replicated_storage.shareName
-    containerName  = module.replicated_storage.containerName
-    sasKey         = module.replicated_storage.sasKey
-    blobName       = module.replicated_storage.blobName
-    dbHost         = module.replicated_db.dbHost
-    dbName         = module.replicated_db.dbName
-    secretUriUser  = module.secondary_vault.secretUriUser
-    secretUriPass  = module.secondary_vault.secretUriPass
-    identity       = module.secondary_vault.identityId
+    source             = "./web"
+    resourcePrefix     = var.secondaryResourcePrefix
+    location           = var.secondaryLocation
+    rgName             = module.rg.secondary_rgweb
+    storageName        = module.storage.storageName
+    storageKey         = module.storage.storageKey
+    shareName          = module.storage.shareName
+    containerName      = module.storage.containerName
+    sasKey             = module.storage.sasKey
+    blobName           = module.storage.blobName
+    dbHost             = module.db.dbHost
+    dbName             = module.db.dbName
+    secretUriUser      = module.secondary_vault.secretUriUser
+    secretUriPass      = module.secondary_vault.secretUriPass
+    identity           = module.secondary_vault.identityId
+    aiKey              = module.secondary_ai.aiKey
+    aiConnectionString = module.secondary_ai.aiConnectionString
 }
 
+##Deploys AzureFrontDoor service
 module "global_waf" {
-    source = "./waf"
+    source                  = "./waf"
+    rgName                  = module.rg.rgwaf
     globalResourcePrefix    = var.globalResourcePrefix
     primaryResourcePrefix   = var.primaryResourcePrefix
     secondaryResourcePrefix = var.secondaryResourcePrefix

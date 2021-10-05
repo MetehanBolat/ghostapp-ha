@@ -43,4 +43,9 @@ variable "secretUriUser" {
 variable "secretUriPass" {
   type = string
 }
-
+variable "aiKey" {
+  type = string
+}
+variable "aiConnectionString" {
+  type = string
+}

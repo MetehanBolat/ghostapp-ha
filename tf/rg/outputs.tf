@@ -1,18 +1,21 @@
-output "webrgname" {
-    value = azurerm_resource_group.rgweb.name
-}
-output "dbrgname" {
+output "rgdb" {
     value = azurerm_resource_group.rgdb.name
 }
-output "vaultrgname" {
-    value = azurerm_resource_group.rgvault.name
+output "rgstorage" {
+    value = azurerm_resource_group.rgstorage.name
 }
-output "webid" {
-    value = azurerm_resource_group.rgweb.id
+output "rgwaf" {
+    value = azurerm_resource_group.rgwaf.name
 }
-output "dbid" {
-    value = azurerm_resource_group.rgdb.id
+output "primary_rgweb" {
+    value = azurerm_resource_group.primary_rgweb.name
 }
-output "vaultid" {
-    value = azurerm_resource_group.rgvault.id
+output "secondary_rgweb" {
+    value = azurerm_resource_group.secondary_rgweb.name
+}
+output "primary_rgvault" {
+    value = azurerm_resource_group.primary_rgvault.name
+}
+output "secondary_rgvault" {
+    value = azurerm_resource_group.secondary_rgvault.name
 }
