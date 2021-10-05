@@ -8,7 +8,7 @@ module "rg" {
     secondaryLocation       = var.secondaryLocation
 }
 
-## Deploys Geo-redundant storage account
+## Deploys Geo-redundant storage account, fileShare, container and functionApp artifact
 module "storage" {
     source             = "./storage"
     storageName        = var.storageName
@@ -26,7 +26,7 @@ module "db" {
     adminPass          = var.adminPass
 }
 
-##Deploys KeyVault service for primary location
+##Deploys KeyVault service for primary location, user assigned identity with get-secret rights
 module "primary_vault" {
     source             = "./vault"
     resourcePrefix     = var.primaryResourcePrefix
@@ -36,7 +36,7 @@ module "primary_vault" {
     adminName          = var.adminName
     adminPass          = var.adminPass
 }
-##Deploys KeyVault service for secondary location
+##Deploys KeyVault service for secondary location, user assigned identity with get-secret rights
 module "secondary_vault" {
     source             = "./vault"
     resourcePrefix     = var.secondaryResourcePrefix
