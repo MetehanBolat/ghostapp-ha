@@ -20,14 +20,8 @@ $ Apply complete! Resources: 38 added, 0 changed, 0 destroyed.
 
 ## Intro
 This repo contains assets for multi-regional, highly-available, scalable and secure [ghost](https://docs.ghost.org) deployment.
-Modules require primary and secondary Azure regions. Deploys geo-replicated database and storage resources to primary location.
-Azure FrontDoor load balances the traffic with 70%/30% primary/secondary distribution.
-Deployment uses application and database layer version defined below.
- - Docker/ghost:alpine-4.16.0
- - MySQL 5.7
 
-
-The solution also contains a function app that can purge all content in the MySQL database.
+The solution also contains a function app that can purge all content in the MySQL database. Please check Architecture Overview for the offered solution.
 
 Regarding node.js [application artifact](./tf/storage/artifacts) is set for FunctionApp package location and accessed securely.
 
@@ -77,3 +71,24 @@ Terraform modules are tested with tooling defined below:
 - [AppServicePlan](./tf/web/main.tf#L19)
 - [MySQL Server](./tf/db/main.tf#L17)
 - [Azure Files Share Quota](./tf/storage/main.tf#L27)
+
+
+### Details
+- Modules require primary and secondary Azure regions.
+- Deploys geo-replicated database and storage resources to primary location.
+- Azure FrontDoor load balances the traffic with 70%/30% primary/secondary distribution.
+- Deployment uses application and database layer version defined below.
+ - Docker/ghost:alpine-4.16.0
+ - MySQL 5.7
+
+### Business Contiunity
+- In case of a disaster on primary location, geo-replicated backups of MySQL can be restored to secondary location for business contiunity, together with secondary endpoint of Azure Files.
+
+### Security Considerations
+- Azure FrontDoor has Web Application Firewall feature enabled.
+- Azure KeyVault is used to store/access MySQL credentials
+- MySQL Database is currently accessible by all Azure services. It is advised to limit access to outbound IP addresses of the app services only.
+
+### How to enable monitoring
+- https://www.codeisahighway.com/configure-application-insights-for-your-ghost-blog-running-node-js-on-azure/
+- Base docker image must be updated to active Application Insights telemetry for node.js application
