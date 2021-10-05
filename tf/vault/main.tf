@@ -20,8 +20,6 @@ resource "azurerm_key_vault" "vault" {
   purge_protection_enabled        = false
   enabled_for_deployment          = true
   enabled_for_template_deployment = true
-  soft_delete_enabled             = false
-
   sku_name                        = "standard"
 }
 

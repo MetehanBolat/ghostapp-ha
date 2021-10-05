@@ -108,9 +108,6 @@ module "global_waf" {
     source                  = "./waf"
     rgName                  = module.rg.rgwaf
     globalResourcePrefix    = var.globalResourcePrefix
-    primaryResourcePrefix   = var.primaryResourcePrefix
-    secondaryResourcePrefix = var.secondaryResourcePrefix
-    primaryLocation         = var.primaryLocation
     primaryUrl              = module.primary_web.url
     secondaryUrl            = module.secondary_web.url
 }

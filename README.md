@@ -1,9 +1,6 @@
 # nca
 NordCloud Assignment
 
-## Intro
-This repo contains assets for multi-regional, highly-available, scalable and secure [ghost](https://docs.ghost.org) deployment.
-
 # TL;DR
 [terraform.tfvars](./tf/terraform.tfvars): **edit before deployment**
 ```bash
@@ -20,6 +17,16 @@ $  Enter a value:
 $ "yes"
 $ Apply complete! Resources: 38 added, 0 changed, 0 destroyed.
 ```
+
+## Intro
+This repo contains assets for multi-regional, highly-available, scalable and secure [ghost](https://docs.ghost.org) deployment.
+Modules require primary and secondary Azure regions. Deploys geo-replicated database and storage resources to primary location.
+Azure FrontDoor load balances the traffic with 70%/30% primary/secondary distribution.
+Deployment uses application and database layer version defined below.
+ - Docker/ghost:alpine-4.16.0
+ - MySQL 5.7
+The solution also contains a function app that can purge all content in the MySQL database.
+Regarding node.js [application artifact](./tf/storage/artifacts) is set for FunctionApp package location and accessed securely.
 
 ## Table of Contents
 - [Architecture overview](./NCA-HA-Architecture.pdf) : Overview of NCA deployment
@@ -50,7 +57,7 @@ Terraform modules are tested with tooling defined below:
 - Python (Windows) 3.8.9 (tags/v3.8.9:a743f81, Apr  6 2021, 13:22:56) [MSC v.1928 32 bit (Intel)]
 
 ### List of Deployed all (38) Azure Infrastructure resources
-- 7x ResourceGroups (2x Web, 2x DB, 2x Security, 1x Global)
+- 8x ResourceGroups (2xWeb, 2xSecurity, 1xDB, 1xStorage 1xGlobal)
 - 2x User Assigned Identities
 - 2x Application Insights workspaces
 - 2x Azure KeyVaults
