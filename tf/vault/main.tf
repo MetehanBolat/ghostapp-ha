@@ -2,7 +2,11 @@ provider "azurerm" {
   version = "=2.78.0"
   features {
     key_vault {
+<<<<<<< HEAD
       purge_soft_delete_on_destroy = false
+=======
+      purge_soft_delete_on_destroy = true
+>>>>>>> dev
     }
   }
 }
@@ -20,8 +24,11 @@ resource "azurerm_key_vault" "vault" {
   purge_protection_enabled        = false
   enabled_for_deployment          = true
   enabled_for_template_deployment = true
+<<<<<<< HEAD
   soft_delete_enabled             = false
 
+=======
+>>>>>>> dev
   sku_name                        = "standard"
 }
 
@@ -54,7 +61,7 @@ resource "azurerm_key_vault_access_policy" "default" {
 }
 
 resource "azurerm_key_vault_access_policy" "id" {
-  key_vault_id = azurerm_key_vault.vault.id
+  key_vault_id = azurerm_key_vault_access_policy.default.key_vault_id
   tenant_id    = azurerm_user_assigned_identity.id.tenant_id
   object_id    = azurerm_user_assigned_identity.id.principal_id
 

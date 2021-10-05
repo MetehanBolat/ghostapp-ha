@@ -16,9 +16,9 @@ output "vaultId" {
 output "identityId" {
     value = azurerm_user_assigned_identity.id.id
 }
-output "secretNameUser" {
-    value = azurerm_key_vault_secret.username.name
+output "secretUriUser" {
+    value = azurerm_key_vault_secret.username.id
 }
-output "secretNamePass" {
-    value = azurerm_key_vault_secret.password.name
+output "secretUriPass" {
+    value = azurerm_key_vault_secret.password.id
 }

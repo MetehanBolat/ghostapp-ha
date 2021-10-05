@@ -10,10 +10,12 @@ resource "azurerm_storage_account" "storage" {
   resource_group_name       = var.rgName
   location                  = var.location
   account_tier              = "Standard"
-  account_replication_type  = "LRS"
+  access_tier               = "Hot"
+  account_replication_type  = "GRS"
+  
   enable_https_traffic_only = true
   min_tls_version           = "TLS1_2"
-  allow_blob_public_access  = true
+  allow_blob_public_access  = false
   shared_access_key_enabled = true
   nfsv3_enabled             = false
   is_hns_enabled            = false
