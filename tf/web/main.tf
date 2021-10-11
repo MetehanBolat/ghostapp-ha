@@ -70,30 +70,20 @@ resource "azurerm_app_service" "web" {
   }
 
   app_settings = {
-<<<<<<< HEAD
-    WEBSITES_ENABLE_APP_SERVICE_STORAGE   = true ##required for storage persistance over Azure Files
-    WEBSITES_CONTAINER_START_TIME_LIMIT   = 1000 ##ghost app requires time to boot up with mysql db connection. early restart causes database locks
-=======
     APPINSIGHTS_INSTRUMENTATIONKEY        = var.aiKey
     APPLICATIONINSIGHTS_CONNECTION_STRING = var.aiConnectionString
     WEBSITES_ENABLE_APP_SERVICE_STORAGE   = true ##required for storage persistance over Azure Files
     WEBSITE_ENABLE_SYNC_UPDATE_SITE       = true ##app settings required for application to boot up
     WEBSITES_CONTAINER_START_TIME_LIMIT   = 1000 ##ghost app requires time to boot up with mysql db connection. early restart causes database locks
     keyVaultReferenceIdentity             = var.identity
->>>>>>> dev
     ## ghost settings
     url                                   = "https://${var.resourcePrefix}-web.azurewebsites.net"
     database__client                      = "mysql"
     database__connection__host            = var.dbHost
     database__connection__port            = 3306
     database__connection__database        = var.dbName
-<<<<<<< HEAD
-    database__connection__user            = "@Microsoft.KeyVault(VaultName=${var.vaultName};${var.secretNameUser})"
-    database__connection__password        = "@Microsoft.KeyVault(VaultName=${var.vaultName};${var.secretNamePass})"
-=======
     database__connection__user            = "@Microsoft.KeyVault(SecretUri=${var.secretUriUser})"
     database__connection__password        = "@Microsoft.KeyVault(SecretUri=${var.secretUriPass})"
->>>>>>> dev
     database__connection__ssl             = "true"
     database__connection__ssl__minVersion = "TLSv1.2"
     NODE_ENV                              = "production"

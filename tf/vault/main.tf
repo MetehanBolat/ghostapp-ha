@@ -2,11 +2,7 @@ provider "azurerm" {
   version = "=2.78.0"
   features {
     key_vault {
-<<<<<<< HEAD
-      purge_soft_delete_on_destroy = false
-=======
       purge_soft_delete_on_destroy = true
->>>>>>> dev
     }
   }
 }
@@ -24,11 +20,6 @@ resource "azurerm_key_vault" "vault" {
   purge_protection_enabled        = false
   enabled_for_deployment          = true
   enabled_for_template_deployment = true
-<<<<<<< HEAD
-  soft_delete_enabled             = false
-
-=======
->>>>>>> dev
   sku_name                        = "standard"
 }
 
