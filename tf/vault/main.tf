@@ -52,7 +52,7 @@ resource "azurerm_key_vault_access_policy" "default" {
 }
 
 resource "azurerm_key_vault_access_policy" "id" {
-  key_vault_id = azurerm_key_vault_access_policy.default.key_vault_id
+  key_vault_id = azurerm_key_vault.vault.id
   tenant_id    = azurerm_user_assigned_identity.id.tenant_id
   object_id    = azurerm_user_assigned_identity.id.principal_id
 
@@ -68,11 +68,11 @@ resource "azurerm_key_vault_access_policy" "id" {
 resource "azurerm_key_vault_secret" "username" {
   name         = "${var.resourcePrefix}-mysql-user"
   value        = "${var.adminName}@${var.serverName}"
-  key_vault_id = azurerm_key_vault_access_policy.default.key_vault_id
+  key_vault_id = azurerm_key_vault.vault.id
 }
 
 resource "azurerm_key_vault_secret" "password" {
   name         = "${var.resourcePrefix}-mysql-pass"
   value        = var.adminPass
-  key_vault_id = azurerm_key_vault_access_policy.default.key_vault_id
+  key_vault_id = azurerm_key_vault.vault.id
 }

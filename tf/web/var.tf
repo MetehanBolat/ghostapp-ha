@@ -32,16 +32,6 @@ variable "sasKey" {
   type = string
   sensitive = true
 }
-variable "containerName" {
-  type = string
-}
-variable "blobName" {
-  type = string
-}
-variable "sasKey" {
-  type = string
-  sensitive = true
-}
 variable "dbHost" {
   description = "Used for App Settings, for mySQL Host"
   type = string
@@ -71,12 +61,6 @@ variable "aiKey" {
 }
 variable "aiConnectionString" {
   description = "Used for App Settings - Application Insights ConnectionString"
-  type = string
-}
-variable "secretNameUser" {
-  type = string
-}
-variable "secretNamePass" {
   type = string
 }
 
