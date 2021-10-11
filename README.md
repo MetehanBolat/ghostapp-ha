@@ -80,10 +80,12 @@ Terraform modules are tested with tooling defined below:
 ### Details
 - Modules require primary and secondary Azure regions.
 - Deploys geo-replicated database and storage resources to primary location.
-- Azure FrontDoor load balances the traffic with 70%/30% primary/secondary distribution.
+- Azure FrontDoor load balances the traffic with 80%/20% primary/secondary distribution.
 - Deployment uses application and database layer version defined below.
  - Docker/ghost:alpine-4.16.0
  - MySQL 5.7
+- Use FrontDoor DNS to access application
+- Alternatively, set CNAME records to FrontDoor DNS
 
 ### Business Contiunity
 - In case of a disaster on primary location, geo-replicated backups of MySQL can be restored to secondary location for business contiunity, together with secondary endpoint of Azure Files.
