@@ -28,8 +28,9 @@ Regarding node.js [application artifact](./tf/storage/artifacts) is set for Func
 ## Table of Contents
 - [Architecture overview](./NCA-HA-Architecture.pdf) : Overview of NCA deployment
 - [Architecture Visio draft](./NCA-HA.vsdx)
+- [Azure Cost Estimation](./NCA-HA-ExportedEstimate.xlsx) : Azure cost estimation for base resources
 - [Terraform Base](./tf/main.tf) : Base module for NCA deployment
-- [ResourceGroup Module](./tf/rg/) : Azure ResourceGroup Deployment for Web - DB - Security
+- [ResourceGroup Module](./tf/rg/) : Azure ResourceGroup Deployment for Web - DB - Security - Storage
 - [Database Module](./tf/db/) : Azure Database for MySQL
 - [Storage Module](./tf/storage/) : Azure Storage Account, Container, FileShare, BlobContent, SASUri deployment
 - [ApplicationInsights Module](./tf/ai/) : Application Insights deployment for primary and secondary location
